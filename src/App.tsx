@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import movies from './MOVIES.json';
 import { Header } from './components/header/header';
 import './styles/app.scss';
-import { Movie } from './interfaces/movie';
+//import { Movie } from './interfaces/movie';
 import { Movies } from './components/movieList/movies';
 import { Form } from './components/createMovies/form';
 //import { getListPage } from './requests/getListPage';

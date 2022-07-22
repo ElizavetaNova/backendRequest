@@ -17,3 +17,21 @@
     }
   }
 }
+
+.app-pages {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    height: 20px;
+
+    &__btn {
+        margin: 5px;
+        color: #040d7a;
+        font-size: 14px;
+
+        &:hover {
+            border-bottom: 2px solid;
+            color: #181054;
+        }
+    }
+}

@@ -2,15 +2,11 @@ import React, { Component, useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import deleteIcon from '../../images/close.svg';
-import { Movie } from '../../interfaces/movie';
+import { MovieList } from '../../models/movieList';
 import './movies.scss';
-import { getListMovies } from '../../requests/getListMovies'
+import { pageMy, deleteMovie } from '../../requests/requests'
 
-interface CreateMovieParams {
-    //movies: Movie[];
-    //deleteNote(index: number): void;
-}
-
+const pageSize: number = 10;
 //function getListPage(lenghtList: number, countDisplayElements: number) {
 //    let listPage = [];
 //    const countPage = Math.ceil(lenghtList / countDisplayElements)
@@ -20,38 +16,37 @@ interface CreateMovieParams {
 //    return listPage
 //}
 
-export const Movies = (props: CreateMovieParams) => {
-    const [moviesList, setMoviesList] = useState<Movie[]>([]);
-    //const [lenghtListMovies, setLenghtListMovies] = useState<number>(0)
-    //const [page, setPage] = useState<number>(0);
-    const size: number = 10;
-    const page = 0;
-    //const [pageList, setPageList] = useState<number[]>([]);
-    
-    setMoviesList(getListMovies(page, size))
-    //let movies: Movie[];
-    //const lenghtComment = 200;
-    ////useEffect(() => {
-    ////    axios.get(`http://students.dev.thewhite.ru/api/movies/page-my?page=${page}&size=${size}`, { headers })
-    ////        .then(res => {
-    ////            const movies = res.data.items;
-    ////            setMoviesList(movies);
+export function Movies() {
+    const [moviesList, setMoviesList] = useState<MovieList[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-    ////            const lenghtListMovies = res.data.totalCount;
-    ////            setLenghtListMovies(lenghtListMovies);
-    ////            //setPageList(getCountPage(lenghtListMovies, size));
-    ////            //console.log(pageList)
-    ////        }),
-    ////        []
-    ////})
-    //let listPage = [];
-    //const countPage = Math.ceil(lenghtListMovies / size)
-    //for (let i = 1; i <= countPage; i++) {
-    //    listPage.push(i);
-    //}
-    //setPageList(listPage)
-    //setPageList(getListPage(lenghtListMovies, size))
-   // console.log(getListPage(lenghtListMovies, size))
+    useEffect(() => {
+        pageMy(currentPage-1, pageSize)
+            .then(movies => {
+                setMoviesList(movies.items);
+                setTotalPages(Math.ceil(movies.totalCount / pageSize));
+            });
+    }, [currentPage]);
+    function deleteMovieByID(id: string) {
+        deleteMovie(id)
+            .then(x => {
+                const copyMoviesList = [...moviesList];
+                const indexToRemove = copyMoviesList.findIndex(x => x.id === id);
+                copyMoviesList.splice(indexToRemove, 1);
+                setMoviesList(copyMoviesList);
+            });
+    }
+
+    const pages = []
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+    }
+
+    function onOpenNewPage(numberNewPage: number) {
+        setCurrentPage(numberNewPage);
+    }
+
     return (
         <div>
             <table
@@ -64,15 +59,14 @@ export const Movies = (props: CreateMovieParams) => {
                         <th>Title</th>
                         <th>Rate</th>
                         <th>Date</th>
-                        <th>Description</th>
                         <th></th>
                     </tr>
                 </thead>
                 {
-                    moviesList.map((movie: Movie, index: number) => (
+                    moviesList.map((movie: MovieList) => (
                     
                         <tr
-                            key={index}
+                            key={movie.id}
                             className={'table-movies__item movies-item'}
                         >
                             <td
@@ -84,15 +78,12 @@ export const Movies = (props: CreateMovieParams) => {
                             <td
                                 className={'movies-item__td item-td'}
                             >{movie.date}</td>
-                            <td
-                                className={'movies-item__td item-td'}
-                            >{movie.comment }</td>
+                            
                             <td
                                 className={'movies-item__td item-td'}
                             >
                                 <button
-                                    onClick={() => console.log(movie)}
-                                   // onClick={() => props.deleteNote(index)}
+                                    onClick={() => deleteMovieByID(movie.id)}
                                 >
                                     <img className={'item-td__img'} src={deleteIcon} alt={'delete'} />
                                 </button>
@@ -102,6 +93,22 @@ export const Movies = (props: CreateMovieParams) => {
                     ))
                 }
             </table>
+            <div
+                className={'app-pages'}
+            >
+            {
+                pages.map((page: number, index: number) =>
+
+                     <button
+                        className={'app-pages__btn'}
+                        key={index}
+                        onClick={() => onOpenNewPage(page)}
+                     >
+                            {page}
+                     </button>
+                )
+            }
+            </div>
         </div>
     );
 };

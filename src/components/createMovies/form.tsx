@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Movie } from '../../interfaces/movie';
+import { Movie } from '../../models/movie';
 import './form.scss';
 
 interface CreateMovieParams {
