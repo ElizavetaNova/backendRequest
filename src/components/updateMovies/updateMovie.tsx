@@ -1,69 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Movie } from '../../models/movie';
+import { useEffect} from 'react';
 import './updateMovie.scss';
 import React, { Component } from 'react';
-import { create, getItem, update } from '../../requests/requests'
-import { CreateMovieDto } from '../../interfaces/createMovieDto';
+import { create, getItem, update } from '../../requests/requests';
 import { RegisterOptions, useForm } from 'react-hook-form';
 import { UpdateMovieDto } from '../../interfaces/updateMovieDto';
+import { formInputs } from '../arrayInputsForm';
 
 interface UpdateMovieParams {
     idItem: string,
     hideForm(showForm: boolean): void;
 }
-
-interface FormInput {
-    label: string;
-    name: keyof CreateMovieDto;
-    type?: string;
-    validation?: RegisterOptions;
-}
-
-const formInputs: FormInput[] = [
-    {
-        label: 'Title',
-        name: 'title',
-        validation: {
-            required: {
-                value: true,
-                message: 'This field is required',
-            },
-            pattern: {
-                value: /\w{1,30}/,
-                message: 'Invalid',
-            },
-        },
-    },
-    {
-        label: 'Rate movie',
-        name: 'rate',
-        validation: {
-            required: {
-                value: true,
-                message: 'This field is required',
-            },
-            min: 0,
-            max: 5,
-            valueAsNumber: true,
-        },
-    },
-    {
-        label: 'Leave your comment',
-        name: 'comment',
-        type: 'textarea',
-    },
-    {
-        label: 'Premier date',
-        name: 'date',
-        type: 'date',
-        validation: {
-            required: {
-                value: true,
-                message: 'This field is required',
-            },
-        },
-    },
-];
 
 export const Form = (props: UpdateMovieParams) => {
         
@@ -83,14 +29,14 @@ export const Form = (props: UpdateMovieParams) => {
 
         getItem(props.idItem)
             .then((item) => {
-                 reset(item);
+                reset(item);
             });
 
     }, [props.idItem]);
 
     function onSubmit(data: UpdateMovieDto) {
         if (!props.idItem) return;
-        update(props.idItem, data)
+        update(props.idItem, data);
         hideForm();
     }    
 
@@ -101,17 +47,32 @@ export const Form = (props: UpdateMovieParams) => {
             >
                 Cancel
             </button>
-            <form className={'add-movie__form'}
+            <form className={'update-movie__form'}
                 onSubmit={handleSubmit(onSubmit)}
-                    >
-                    {
+            >
+                {
                     formInputs.map((item, index) => {
                         switch (item.type) {
-                            case undefined:
-                                return <>
-                                    <input
+                        case undefined:
+                            return <>
+                                <input
+                                    className={'update-movie-input'}
+                                    placeholder={item.label}
+                                    {...register(item.name, item.validation)}
+                                />
+                                {
+                                    errors[item.name]?.message &&
+                                    <p className="error">
+                                        {errors[item.name]?.message}
+                                    </p>
+                                }
+                            </>;
+                        case 'textarea':
+                            return (
+                                <>
+                                    <textarea
                                         className={'create-movie-input'}
-                                        placeholder={item.label}
+                                        placeholder={errors[item.name]?.message ?? item.label}
                                         {...register(item.name, item.validation)}
                                     />
                                     {
@@ -120,25 +81,41 @@ export const Form = (props: UpdateMovieParams) => {
                                             {errors[item.name]?.message}
                                         </p>
                                     }
-                                </>;
-                            case 'textarea':
-                                return (
-                                    <textarea
-                                        className={'create-movie-input'}
-                                        placeholder={errors[item.name]?.message ?? item.label}
-                                        {...register(item.name, item.validation)}
-                                    />
-                                );
-                            case 'date':
-                                return <input
+                                    
+                                </>);
+                        case 'date':
+                            return( <>
+                                <input
                                     type={'date'}
                                     className={'create-movie-input'}
                                     {...register(item.name, item.validation)}
-                                />;
+                                />
+                                {
+                                    errors[item.name]?.message &&
+                                        <p className="error">
+                                            {errors[item.name]?.message}
+                                        </p>
+                                }
+                            </>);
+                        case 'number':
+                            return ( <>
+                                <input
+                                    type={'number'}
+                                    className={'create-movie-input'}
+                                    {...register(item.name, item.validation)}
+                                />
+                                {
+                                    errors[item.name]?.message &&
+                                        <p className="error">
+                                            {errors[item.name]?.message}
+                                        </p>
+                                }
+                            </>);
                         }
 
                     })
                 }
+                <div className={'form-filler'}></div>
                 <button className={'primary-button'}>
                     Submit
                 </button>

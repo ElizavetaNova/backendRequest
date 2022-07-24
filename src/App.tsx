@@ -19,7 +19,7 @@ class App extends Component<{}, AppState> {
     };
 
     toggleForm = () => {
-        this.setState({ showForm: !this.state.showForm })
+        this.setState({ showForm: !this.state.showForm });
     };     
 
     render() {

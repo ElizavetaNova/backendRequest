@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 import { Movie } from '../models/movie';
 import { CollectionDto } from '../interfaces/collectionDto';
-import { MovieList } from "../models/movieList";
-import { CreateMovieDto } from "../interfaces/createMovieDto";
-import { UpdateMovieDto } from "../interfaces/updateMovieDto";
+import { MovieList } from '../models/movieList';
+import { CreateMovieDto } from '../interfaces/createMovieDto';
+import { UpdateMovieDto } from '../interfaces/updateMovieDto';
 
 const api = axios.create({ baseURL: 'http://students.dev.thewhite.ru/api' });
 api.defaults.headers.common['Content-Type'] = 'application/json';
@@ -16,7 +16,7 @@ api.interceptors.request.use((config) => {
 
 export function pageMy(page: number, size: number) {
     const params = { page, size };
-    return api.get<CollectionDto<MovieList>>(`movies/page-my`, { params })
+    return api.get<CollectionDto<MovieList>>('movies/page-my', { params })
         .then(res => res.data);
 }
 

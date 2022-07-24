@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import deleteIcon from '../../images/close.svg';
 import { MovieList } from '../../models/movieList';
 import './movies.scss';
-import { pageMy, deleteMovie } from '../../requests/requests'
-import { Form } from '../updateMovies/updateMovie'
+import { pageMy, deleteMovie } from '../../requests/requests';
+import { Form } from '../updateMovies/updateMovie';
 
 const pageSize: number = 10;
 
@@ -34,10 +34,10 @@ export function Movies() {
     }
 
     function toggleForm() {
-        setShowFormUpdate(false)
+        setShowFormUpdate(false);
     };
 
-    const pages = []
+    const pages = [];
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
     }
@@ -80,7 +80,7 @@ export function Movies() {
                             onClick={() => onOpenForm(movie.id)}
                         >
                             <td
-                                className={'movies-item__td item-td'}
+                                className={'movies-item__td item-td item-td-title'}
                             >{movie.title}</td>
                             <td
                                 className={'movies-item__td item-td'}
@@ -106,18 +106,18 @@ export function Movies() {
             <div
                 className={'app-pages'}
             >
-            {
-                pages.map((page: number, index: number) =>
-
-                     <button
-                        className={'app-pages__btn'}
-                        key={index}
-                        onClick={() => onOpenNewPage(page)}
-                     >
+                {
+                    pages.map((page: number, index: number) =>
+                           
+                        <button
+                            className={'app-pages__btn'}
+                            key={index}
+                            onClick={() => onOpenNewPage(page)}
+                        >
                             {page}
-                     </button>
-                )
-            }
+                        </button>
+                    )
+                }
             </div>
             <div>
                 {showFormUpdate ? <Form idItem={idItemUpdate} hideForm={toggleForm} /> : null}

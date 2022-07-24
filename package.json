@@ -25,8 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "stylelint": "stylelint src/components/movieList/*.scss --fix",
-    "eslint": "npx eslint src/components/movieList/*.tsx"
+    "stylelint": "stylelint src/components/*/*.scss --fix",
+    "eslint": "npx eslint src/components/*/*.tsx"
   },
   "browserslist": {
     "production": [
