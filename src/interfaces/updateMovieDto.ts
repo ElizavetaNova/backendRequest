@@ -1,5 +1,4 @@
-export interface Movie {
-    id: string;
+export interface UpdateMovieDto {
     title: string;
     rate: number;
     comment: string;

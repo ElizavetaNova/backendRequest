@@ -5,21 +5,16 @@ import deleteIcon from '../../images/close.svg';
 import { MovieList } from '../../models/movieList';
 import './movies.scss';
 import { pageMy, deleteMovie } from '../../requests/requests'
+import { Form } from '../updateMovies/updateMovie'
 
 const pageSize: number = 10;
-//function getListPage(lenghtList: number, countDisplayElements: number) {
-//    let listPage = [];
-//    const countPage = Math.ceil(lenghtList / countDisplayElements)
-//    for (let i = 1; i <= countPage; i++) {
-//        listPage.push(i);
-//    }
-//    return listPage
-//}
 
 export function Movies() {
     const [moviesList, setMoviesList] = useState<MovieList[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [showFormUpdate, setShowFormUpdate] = useState<boolean>(false);
+    const [idItemUpdate, setIdItemUpdate] = useState<string>('');
 
     useEffect(() => {
         pageMy(currentPage-1, pageSize)
@@ -38,6 +33,10 @@ export function Movies() {
             });
     }
 
+    function toggleForm() {
+        setShowFormUpdate(false)
+    };
+
     const pages = []
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
@@ -45,6 +44,16 @@ export function Movies() {
 
     function onOpenNewPage(numberNewPage: number) {
         setCurrentPage(numberNewPage);
+    }
+
+    function onOpenForm(id: string) {
+        if (idItemUpdate != id) {
+            setShowFormUpdate(true);
+            setIdItemUpdate(id);
+        }
+        else {
+            setShowFormUpdate(false);
+        }
     }
 
     return (
@@ -68,6 +77,7 @@ export function Movies() {
                         <tr
                             key={movie.id}
                             className={'table-movies__item movies-item'}
+                            onClick={() => onOpenForm(movie.id)}
                         >
                             <td
                                 className={'movies-item__td item-td'}
@@ -108,6 +118,9 @@ export function Movies() {
                      </button>
                 )
             }
+            </div>
+            <div>
+                {showFormUpdate ? <Form idItem={idItemUpdate} hideForm={toggleForm} /> : null}
             </div>
         </div>
     );

@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { Movie } from '../models/movie';
 import { CollectionDto } from '../interfaces/collectionDto';
 import { MovieList } from "../models/movieList";
 import { CreateMovieDto } from "../interfaces/createMovieDto";
+import { UpdateMovieDto } from "../interfaces/updateMovieDto";
 
 const api = axios.create({ baseURL: 'http://students.dev.thewhite.ru/api' });
 api.defaults.headers.common['Content-Type'] = 'application/json';
@@ -26,5 +26,15 @@ export function deleteMovie(id: string) {
 
 export function create(dto: CreateMovieDto) {
     return api.post<Movie>('movies/create', dto)
+        .then(res => res.data);
+}
+
+export function update(id: string, dto: UpdateMovieDto) {
+    return api.post<Movie>(`movies/${id}/update`, dto)
+        .then(res => res.data);
+}
+
+export function getItem(id: string) {
+    return api.get<Movie>(`movies/${id}`)
         .then(res => res.data);
 }

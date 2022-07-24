@@ -4,9 +4,12 @@
     "\\src",
     "\\src\\components",
     "\\src\\components\\createMovies",
+    "\\src\\components\\header",
     "\\src\\components\\movieList",
-    "\\src\\interfaces"
+    "\\src\\interfaces",
+    "\\src\\models",
+    "\\src\\requests"
   ],
-  "SelectedNode": "\\.eslintrc.json",
+  "SelectedNode": "\\src\\components\\header\\header.tsx",
   "PreviewInSolutionExplorer": false
 }
