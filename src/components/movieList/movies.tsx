@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import deleteIcon from '../../images/close.svg';
 import { MovieList } from '../../models/movieList';
 import './movies.scss';
 import { pageMy, deleteMovie } from '../../requests/requests';
 import { Form } from '../updateMovies/updateMovie';
+import { CollectionDto } from '../../interfaces/collectionDto';
 
 const pageSize: number = 10;
 
 export function Movies() {
     const [moviesList, setMoviesList] = useState<MovieList[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [showFormUpdate, setShowFormUpdate] = useState<boolean>(false);
     const [idItemUpdate, setIdItemUpdate] = useState<string>('');
 
+    const [pagesMovies, setPagesMovies] = useState<Array<number>>();
+
     useEffect(() => {
-        pageMy(currentPage-1, pageSize)
-            .then(movies => {
+        pageMy(currentPage - 1, pageSize)
+            .then((movies: CollectionDto<MovieList>) => {
                 setMoviesList(movies.items);
-                setTotalPages(Math.ceil(movies.totalCount / pageSize));
+                const arrayPages = [];
+                for (let i = 1; i <= Math.ceil(movies.totalCount / pageSize); i++) {
+                    arrayPages.push(i);
+                }
+                setPagesMovies(arrayPages);
             });
     }, [currentPage]);
 
@@ -37,17 +43,12 @@ export function Movies() {
         setShowFormUpdate(false);
     }
 
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-    }
-
     function onOpenNewPage(numberNewPage: number) {
         setCurrentPage(numberNewPage);
     }
 
     function onOpenForm(id: string) {
-        if (idItemUpdate != id) {
+        if (idItemUpdate !== id) {
             setShowFormUpdate(true);
             setIdItemUpdate(id);
         }
@@ -107,7 +108,7 @@ export function Movies() {
                 className={'app-pages'}
             >
                 {
-                    pages.map((page: number, index: number) =>
+                    pagesMovies?.map((page: number, index: number) =>
                            
                         <button
                             className={'app-pages__btn'}

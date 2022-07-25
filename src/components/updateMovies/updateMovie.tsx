@@ -28,10 +28,7 @@ export const Form = (props: UpdateMovieParams) => {
             >
                 Cancel
             </button>
-
-            <FormInputsDisplay onSubmit={onSubmit} idItem={props.idItem} />
-            
-        </div>
-        
+            <FormInputsDisplay onSubmit={onSubmit} idItem={props.idItem} />            
+        </div>        
     );
 };

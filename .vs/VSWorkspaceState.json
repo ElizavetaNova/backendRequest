@@ -8,7 +8,6 @@
     "\\src\\components\\movieList",
     "\\src\\components\\updateMovies",
     "\\src\\interfaces",
-    "\\src\\models",
     "\\src\\requests"
   ],
   "SelectedNode": "\\src\\components\\movieList\\movies.tsx",

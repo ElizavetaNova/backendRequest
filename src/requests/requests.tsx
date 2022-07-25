@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Movie } from '../models/movie';
 import { CollectionDto } from '../interfaces/collectionDto';
 import { MovieList } from '../models/movieList';
@@ -14,22 +14,22 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-export function pageMy(page: number, size: number) {
+export function pageMy(page: number, size: number): Promise<CollectionDto<MovieList>>{
     const params = { page, size };
     return api.get<CollectionDto<MovieList>>('movies/page-my', { params })
         .then(res => res.data);
 }
 
-export function deleteMovie(id: string) {
+export function deleteMovie(id: string): Promise<AxiosResponse<any, any>> {
     return api.post(`movies/${id}/delete`);
 }
 
-export function create(dto: CreateMovieDto) {
+export function create(dto: CreateMovieDto): Promise<Movie | AxiosResponse<Movie, any>> {
     return api.post<Movie>('movies/create', dto)
         .then(res => res.data);
 }
 
-export function update(id: string, dto: UpdateMovieDto) {
+export function update(id: string, dto: UpdateMovieDto): Promise<Movie | AxiosResponse<Movie, any>> {
     return api.post<Movie>(`movies/${id}/update`, dto)
         .then(res => res.data);
 }

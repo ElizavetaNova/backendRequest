@@ -14,22 +14,24 @@ export const formInputs: FormInput[] = [
                 message: 'This field is required',
             },
             pattern: {
-                value: /\w{1,30}/,
-                message: 'Invalid',
+                value: /^[A-Za-z0-9]+(\s[A-Za-z0-9]+){0,3}$/,
+                message: 'Invalid, use only latin letters and/or numbers',
             },
         },
     },
     {
         label: 'Rate movie',
         name: 'rate',
+        type: 'number',
         validation: {
             required: {
                 value: true,
                 message: 'This field is required',
             },
-            min: 0,
-            max: 5,
-            valueAsNumber: true,
+            pattern: {
+                value: /\[0-5]{1}/,
+                message: 'Invalid, enter a number from 0 to 5',
+            },
         },
     },
     {
@@ -45,6 +47,10 @@ export const formInputs: FormInput[] = [
             required: {
                 value: true,
                 message: 'This field is required',
+            },
+            pattern: {
+                value: /(\d{2}\.){2}\.\d{4}/,
+                message: 'Invalid, enter the date in the format dd.mm.yyyy',
             },
         },
     },
@@ -114,6 +120,22 @@ export const FormInputsDisplay = (props: CreateOrUpdateMovieParams) => {
                                 <>
                                     <input
                                         type={'date'}
+                                        className={'create-movie-input'}
+                                        {...register(item.name, item.validation)}
+                                    />
+                                    {
+                                        errors[item.name]?.message &&
+                                        <p className="error">
+                                            {errors[item.name]?.message}
+                                        </p>
+                                    }
+                                </>
+                            );
+                        case 'number':
+                            return (
+                                <>
+                                    <input
+                                        type={'number'}
                                         className={'create-movie-input'}
                                         {...register(item.name, item.validation)}
                                     />
