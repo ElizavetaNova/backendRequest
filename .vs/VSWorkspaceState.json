@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\createMovies",
+    "\\src\\components\\header",
+    "\\src\\components\\movieList",
+    "\\src\\components\\updateMovies",
+    "\\src\\interfaces",
+    "\\src\\requests"
+  ],
+  "SelectedNode": "\\src\\components\\movieList\\movies.tsx",
+  "PreviewInSolutionExplorer": false
+}

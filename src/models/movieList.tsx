@@ -1,7 +1,6 @@
-export interface Movie {
+export interface MovieList {
     id: string;
     title: string;
     rate: number;
-    comment: string;
     date: string;
-} 
+}

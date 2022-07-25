@@ -7,13 +7,42 @@
 
   &__item {
     padding: 10px 0;
+    text-align: center;    
 
     .item-td {
+      &-title {
+        width: 50%;
+        text-align: start;
+        cursor: pointer;
+
+        &:hover {
+          border: 2px solid #7211db;
+        }
+      }
+
       &__img {
         width: 20px;
         height: 20px;
         background-color: maroon;
       }
+    }
+  }
+}
+
+.app-pages {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  height: 20px;
+
+  &__btn {
+    margin: 5px;
+    color: #040d7a;
+    font-size: 14px;
+
+    &:hover {
+      border-bottom: 2px solid;
+      color: #181054;
     }
   }
 }
