@@ -1,5 +1,4 @@
 import React, { Component, useState } from 'react';
-import axios from 'axios';
 import { useEffect } from 'react';
 import deleteIcon from '../../images/close.svg';
 import { MovieList } from '../../models/movieList';

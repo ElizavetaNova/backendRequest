@@ -6,10 +6,11 @@
     "\\src\\components\\createMovies",
     "\\src\\components\\header",
     "\\src\\components\\movieList",
+    "\\src\\components\\updateMovies",
     "\\src\\interfaces",
     "\\src\\models",
     "\\src\\requests"
   ],
-  "SelectedNode": "\\src\\components\\header\\header.tsx",
+  "SelectedNode": "\\src\\components\\movieList\\movies.tsx",
   "PreviewInSolutionExplorer": false
 }

@@ -6,7 +6,6 @@ import { RegisterOptions, useForm } from 'react-hook-form';
 import { formInputs } from '../arrayInputsForm';
 
 interface CreateMovieParams {
-   // saveMovie(newNovie: Movie): void;
     hideForm(showForm: boolean): void;
 }
 
