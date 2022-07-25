@@ -1,38 +1,36 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true
-    },
-  "extends": [
-    "plugin:react/recommended"
-  ],
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    },
-    "rules": {
-        "indent": [
-            "warn",
-            4
-        ],
-        "quotes": [
-            "warn",
-            "single"
-        ],
-        "semi": [
-            "warn",
-            "always"
-        ],
-        "no-magic-numbers": [
-            "warn",
-            {
-                "ignore": [-1, 0, 1]
-            }
-        ],
-        "no-console": ["warn"],
-        "no-undef": "off",
-        "linebreak-style": "off",
-        "no-multiple-empty-lines": "warn",
-        "eol-last": "warn"
-    }
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "indent": [
+      "warn",
+      4
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "no-magic-numbers": [
+      "warn",
+      {
+        "ignore": [ -1, 0, 1 ]
+      }
+    ],
+    "no-console": [ "warn" ],
+    "no-undef": "off",
+    "linebreak-style": "off",
+    "no-multiple-empty-lines": "warn",
+    "eol-last": "warn"
+  }
 }

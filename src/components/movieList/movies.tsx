@@ -22,9 +22,10 @@ export function Movies() {
                 setTotalPages(Math.ceil(movies.totalCount / pageSize));
             });
     }, [currentPage]);
+
     function deleteMovieByID(id: string) {
         deleteMovie(id)
-            .then(x => {
+            .then(() => {
                 const copyMoviesList = [...moviesList];
                 const indexToRemove = copyMoviesList.findIndex(x => x.id === id);
                 copyMoviesList.splice(indexToRemove, 1);

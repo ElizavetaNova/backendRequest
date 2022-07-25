@@ -1,8 +1,7 @@
 import './createForm.scss';
-import React, { Component } from 'react';
 import { create } from '../../requests/requests';
 import { CreateMovieDto } from '../../interfaces/createMovieDto';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { formInputs } from '../arrayInputsForm';
 
 interface CreateMovieParams {

@@ -1,8 +1,7 @@
 import { useEffect} from 'react';
 import './updateMovie.scss';
-import React, { Component } from 'react';
-import { create, getItem, update } from '../../requests/requests';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { getItem, update } from '../../requests/requests';
+import { useForm } from 'react-hook-form';
 import { UpdateMovieDto } from '../../interfaces/updateMovieDto';
 import { formInputs } from '../arrayInputsForm';
 
