@@ -12,7 +12,7 @@ export const Form = (props: CreateMovieParams) => {
     
     function hideForm (){
         props.hideForm(true);
-    };
+    }
 
     function onSubmit(data: CreateMovieDto) {
         create(data);
@@ -30,7 +30,7 @@ export const Form = (props: CreateMovieParams) => {
             onSubmit={handleSubmit(onSubmit)}
         >
             {
-                formInputs.map((item, index) => {
+                formInputs.map((item) => {
                     switch (item.type) {
                     case undefined:
                         return <>

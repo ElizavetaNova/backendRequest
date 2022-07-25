@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import deleteIcon from '../../images/close.svg';
 import { MovieList } from '../../models/movieList';
@@ -35,7 +35,7 @@ export function Movies() {
 
     function toggleForm() {
         setShowFormUpdate(false);
-    };
+    }
 
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -76,11 +76,11 @@ export function Movies() {
                     
                         <tr
                             key={movie.id}
-                            className={'table-movies__item movies-item'}
-                            onClick={() => onOpenForm(movie.id)}
+                            className={'table-movies__item movies-item'}                            
                         >
                             <td
                                 className={'movies-item__td item-td item-td-title'}
+                                onClick={() => onOpenForm(movie.id)}
                             >{movie.title}</td>
                             <td
                                 className={'movies-item__td item-td'}
@@ -124,4 +124,4 @@ export function Movies() {
             </div>
         </div>
     );
-};
+}

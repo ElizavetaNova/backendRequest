@@ -14,10 +14,9 @@ export const Form = (props: UpdateMovieParams) => {
         
     function hideForm() {
         props.hideForm(true);
-    };   
+    }
 
-
-    const { register, reset, formState: { errors }, setValue, handleSubmit } = useForm<UpdateMovieDto>({
+    const { register, reset, formState: { errors }, handleSubmit } = useForm<UpdateMovieDto>({
         defaultValues: {},
         reValidateMode: 'onChange',
         mode: 'onBlur',
@@ -50,7 +49,7 @@ export const Form = (props: UpdateMovieParams) => {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 {
-                    formInputs.map((item, index) => {
+                    formInputs.map((item) => {
                         switch (item.type) {
                         case undefined:
                             return <>

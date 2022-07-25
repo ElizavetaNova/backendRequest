@@ -7,18 +7,17 @@
 
   &__item {
     padding: 10px 0;
-    text-align: center;
-    cursor: pointer;
-
-    &:hover {
-      border: 5px solid #7211db;
-      background-color: #ffd800;
-    }
+    text-align: center;    
 
     .item-td {
       &-title {
-        width: 540px;
+        width: 50%;
         text-align: start;
+        cursor: pointer;
+
+        &:hover {
+          border: 2px solid #7211db;
+        }
       }
 
       &__img {
