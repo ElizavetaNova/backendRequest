@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateMovieDto } from '../interfaces/createMovieDto';
+import { CreateOrUpdateMovieDto } from '../interfaces/createOrUpdateMovieDto';
 import { FormInput } from '../interfaces/formInput';
+import { getItem } from '../requests/requests';
 
 export const formInputs: FormInput[] = [
     {
@@ -43,19 +45,38 @@ export const formInputs: FormInput[] = [
             required: {
                 value: true,
                 message: 'This field is required',
-            }
+            },
         },
     },
 ];
 
-export function FormInputsDisplay () {
-    const { register, formState: { errors } } = useForm<CreateMovieDto>({
+interface CreateOrUpdateMovieParams {
+    onSubmit(data: CreateOrUpdateMovieDto): void;
+    idItem: string | null;
+}
+
+export const FormInputsDisplay = (props: CreateOrUpdateMovieParams) => {
+    const { register, reset, formState: { errors }, handleSubmit } = useForm<CreateOrUpdateMovieDto>({
         defaultValues: {},
         reValidateMode: 'onChange',
         mode: 'onBlur',
     });
+
+    useEffect(() => {
+        if (!props.idItem) return;
+
+        getItem(props.idItem)
+            .then((item) => {
+                reset(item);
+            });
+
+    }, [props.idItem]);
+
     return (
-        <div>
+        <form
+            className={'add-movie__form'}
+            onSubmit={handleSubmit(props.onSubmit)}
+        >
             {
                 formInputs.map((item) => {
                     switch (item.type) {
@@ -107,5 +128,9 @@ export function FormInputsDisplay () {
                     }
                 })
             }
-        </div>
-)}
+            <button className={'primary-button'}>
+                Submit
+            </button>
+        </form>
+    );
+};

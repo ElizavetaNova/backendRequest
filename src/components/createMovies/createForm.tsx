@@ -1,7 +1,6 @@
 import './createForm.scss';
 import { create } from '../../requests/requests';
-import { CreateMovieDto } from '../../interfaces/createMovieDto';
-import { useForm } from 'react-hook-form';
+import { CreateOrUpdateMovieDto } from '../../interfaces/createOrUpdateMovieDto';
 import { FormInputsDisplay } from '../arrayInputsForm';
 
 interface CreateMovieParams {
@@ -14,28 +13,12 @@ export const Form = (props: CreateMovieParams) => {
         props.hideForm(true);
     }
 
-    function onSubmit(data: CreateMovieDto) {
+    function onSubmit(data: CreateOrUpdateMovieDto) {
         create(data);
         hideForm();
     }
-
-    const { handleSubmit } = useForm<CreateMovieDto>({
-        defaultValues: {},
-        reValidateMode: 'onChange',
-        mode: 'onBlur',
-    });
-
+        
     return (
-        <form className={'add-movie__form'}
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            
-            <FormInputsDisplay />
-                    
-            
-            <button className={'primary-button'}>
-                Submit
-            </button>
-        </form>
+        <FormInputsDisplay onSubmit={onSubmit} idItem={null} />
     );
 };
